@@ -12,9 +12,9 @@ yup.setLocale({
 
 export default (fields, duplicateUrl, i18n) => {
 
-    const shema = yup.object().shape({
+    const shema = yup.object({
         url: yup.string()
-        .url({key: 'errors.invalid'})//ТУТ БАГ ЧТО ЛОКАЛИЗАЦИЯ СРАБАТЫВАЕТ ПРИ 2ом нажатии
+        .url()//ТУТ БАГ ЧТО ЛОКАЛИЗАЦИЯ СРАБАТЫВАЕТ ПРИ 2ом нажатии
         .notOneOf(duplicateUrl)
     });
 

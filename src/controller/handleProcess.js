@@ -10,6 +10,7 @@ export default (elements, process, prevprocess) => {
     switch(process) {
         case 'sending': {
             // elements.inputUrl.disabled  = true;
+            // console.log(elements.submitButton);
             elements.submitButton.disabled = true;
             break;
         }

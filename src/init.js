@@ -26,19 +26,20 @@ export default (defaultConfigState, elements, i18n) => {
         .then((err)=> {
             watchState.form.errors = err;
 
-                if(_.isEmpty(err)) {
-                    watchState.signupProcess.processState = 'sending';
-                    const link = url;
-                    const proxyUrl = createProxy(link);
-                    return axios.get(proxyUrl)
-                }
+            if(!_.isEmpty(err)) throw Error('поле не валидно');
+            if(watchState.signupProcess.processState === 'sending') throw Error('отправка формы заблокирована');
+            
+            watchState.signupProcess.processState = 'sending';
+            console.log(watchState.signupProcess.processState);
+            const proxyUrl = createProxy(url);
+            return axios.get(proxyUrl)
+                
             } 
         )
         .then((response) => {
             //вложенность ифов плохая практика, надо придумать как упростить
             if(response.data.status.http_code !== 200){
-                console.log('ошибка ответа сервера');
-                return;
+                throw Error('ошибка ответа сервера');
             }
             console.log('запрос выполнен');
             loadedChannels.push(url);

@@ -1,10 +1,11 @@
-import validate from './utilites/validate.js';
+import validate from './util/validate.js';
 import axios from 'axios';
-import parse from './utilites/parse.js';
+import parse from './util/parse.js';
 import _ from 'lodash';
 import render from './view/render.js';
 import onChange from 'on-change';
-import createProxy from './utilites/createProxy.js';
+import createProxy from './util/createProxy.js';
+import updatePost from './util/updatePost.js';
 
 export default (defaultConfigState, elements, i18n) => {
   
@@ -12,7 +13,13 @@ export default (defaultConfigState, elements, i18n) => {
 
     const watchState = onChange(state, render(state, elements));
 
-    // handleInput(state, elements.fields.inputUrl);
+    elements.modal.btnClose.forEach((btn) => btn.addEventListener('click', () => {
+        document.body.classList.remove('modal-open');
+        document.body.style = '';
+        
+        elements.modal.container.classList.remove('show');
+        elements.modal.container.style.display = 'none';
+    }));
 
     elements.form.addEventListener('submit', (event) => {
         
@@ -21,40 +28,46 @@ export default (defaultConfigState, elements, i18n) => {
         const formData = new FormData(event.target);
         const url = formData.get('url');
         const {loadedChannels} = state;
-
+        
+        if(watchState.signupProcess.processState === 'loading') return;
         validate({url}, loadedChannels, i18n)
         .then((err)=> {
-            watchState.form.errors = err;
+            // watchState.form.errors = err;
 
-            if(!_.isEmpty(err)) throw Error('поле не валидно');
-            if(watchState.signupProcess.processState === 'sending') throw Error('отправка формы заблокирована');
+            // if(!_.isEmpty(err) || watchState.signupProcess.processState === 'loading') return;
+
+            watchState.signupProcess.processState = 'loading';
             
-            watchState.signupProcess.processState = 'sending';
-            console.log(watchState.signupProcess.processState);
             const proxyUrl = createProxy(url);
             return axios.get(proxyUrl)
                 
             } 
         )
         .then((response) => {
-            //вложенность ифов плохая практика, надо придумать как упростить
-            if(response.data.status.http_code !== 200){
-                throw Error('ошибка ответа сервера');
-            }
-            console.log('запрос выполнен');
+           
             loadedChannels.push(url);
-            //првоерку на новые данные не буду реализовывать на уровне парсера, потому что функция парсер должна выполнять
-            //1 простое действие и не стоит ее усложнять
-            const parser = parse(response);
-            console.log(parser);
-            //тут присвоить id???
-            watchState.channels.feeds.push(parser.feeds);
-            watchState.channels.posts.push(...parser.posts);
+            
+            const parseData = parse(response);
+            const idFeed = _.uniqueId();
+            parseData.feeds.idFeed = idFeed;
+            const posts = parseData.posts.map((post) => ({...post, id: _.uniqueId(), idFeed}));
+            
+            watchState.channels.feeds.push(parseData.feeds);
+            watchState.channels.posts.unshift(...posts);
+            return idFeed;
+            
+        })
+        .finally(() => {
+            watchState.signupProcess.processState = 'sent';
+        })
+        .then((id) => {
+            updatePost(watchState, url, id);
+            watchState.form.errors = i18n.t('uploaded');
         })
         .catch((err) => {
-            console.log('err')
-            console.log(err)
-        });
+            watchState.form.errors = i18n.t(err.message);
+        })  
+
 });
 
 };

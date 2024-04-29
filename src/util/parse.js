@@ -1,3 +1,4 @@
+
 const getFeed = (item) =>  ({
     title: item.querySelector('title').textContent,
     description: item.querySelector('description').textContent,
@@ -14,9 +15,9 @@ const getFeed = (item) =>  ({
   const parse = (contents) => {
     const parser = new DOMParser();
     const htmlDoc = parser.parseFromString(contents, 'application/xml');
-    
-    const posts = getPosts(htmlDoc);
+
     const feeds = getFeed(htmlDoc);
+    const posts = getPosts(htmlDoc);
     
     return {feeds, posts};
   }
@@ -26,7 +27,7 @@ const getFeed = (item) =>  ({
     try {
       return parse(contents);
     } catch (error) {
-      error.name = 'rssError';
+      error.message = 'errors.resourceNotContain';
       throw error;
     }
   };

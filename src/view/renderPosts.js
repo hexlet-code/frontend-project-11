@@ -1,48 +1,55 @@
+import generateContainer from "./elementGenerators/generateContainer";
+import renderModal from "./renderModal";
 
+export default (elements, state, posts) => {
 
+const defaultClassItem = ['list-group-item' ,'d-flex' ,'justify-content-between', 'align-items-start', 'border-0', 'border-end-0'];
+const defaultClassButton = ['btn' ,'btn-outline-primary' ,'btn-sm'];
 
-const createItem = (items) => items.map(({title, description, link}) => {
+const createItems = (items) => items.map(({title, description, link, id}) => {
 
-   
-    const li = document.createElement('li');
-    li.classList.add('list-group-item' ,'d-flex' ,'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
+    const containerItem = document.createElement('li');
+    containerItem.classList.add(...defaultClassItem);
 
-    const a = document.createElement('a');
-    const button = document.createElement('button');
-    li.append(a, button);
-
-    a.outerHTML = `<a href="${link}" class="fw-bold" data-id="${1}" target="_blank" rel="noopener noreferrer" >${title}</a>`;
-    // a.classList.add('fw-bold');
-
-    // button.classList.add('btn', 'btn-outline-primary' ,'btn-sm');
-    button.outerHTML = `<button type="button" class="btn btn-outline-primary btn-sm" data-id="${1}" data-bs-toggle="modal" data-bs-target="#modal">Просмотр</button>`;
-    
+    const linkItem = document.createElement('a');
+    linkItem.setAttribute('href', link);
+    linkItem.setAttribute('data-id', id);
+    linkItem.setAttribute('target', '_blank');
+    linkItem.setAttribute('rel', 'noopener noreferrer');
   
-    return li;
+    const isLinkVisited = (id) => state.uiState.idVisitedLink.includes(id) ? ['fw-normal', 'link-secondary'] : ['fw-bold'];
+    linkItem.classList.add(...isLinkVisited(id));
+    linkItem.textContent = title;
     
+    linkItem.addEventListener('click', () => {
+        linkItem.classList.remove('fw-bold');
+        linkItem.classList.add('fw-normal', 'link-secondary');
+        state.uiState.idVisitedLink.push(id);
+    })
+
+    const buttomItem = document.createElement('button');
+    buttomItem.setAttribute('type', 'button');
+    buttomItem.setAttribute('data-id', id);
+    buttomItem.setAttribute('data-bs-toggle','modal');
+    buttomItem.setAttribute('data-bs-target', '#modal');
+    buttomItem.classList.add(...defaultClassButton);
+    buttomItem.textContent = 'Просмотр';
+
+    buttomItem.addEventListener('click', (e) => {
+        linkItem.classList.remove('fw-bold');
+        linkItem.classList.add('fw-normal', 'link-secondary');
+        state.uiState.idVisitedLink.push(id);
+        renderModal(elements, {title, description, link})
+    })
+
+    containerItem.append(linkItem, buttomItem);
+
+    return containerItem;
 })
 
-export default (element, newPosts, prevPosts) => {
+const containerItems = generateContainer(elements.posts, 'Посты');
 
-const containerFeeds = document.createElement('div');
-containerFeeds.classList.add('card' ,'border-0');
+const listPosts = createItems(posts);
 
-const titleFeeds = document.createElement('div');
-titleFeeds.classList.add('card-body');
-
-const headingFeeds = document.createElement('h2');
-headingFeeds.classList.add('card-title' ,'h4');
-headingFeeds.textContent = 'Посты'; //переделать на i18n;
-titleFeeds.append(headingFeeds);
-
-const listFeeds = document.createElement('ul');
-listFeeds.classList.add('list-group','border-0' ,'rounded-0');
-
-
-containerFeeds.append(titleFeeds, listFeeds);
-
-element.append(containerFeeds);
-
-const posts = createItem(newPosts);
-listFeeds.append(...posts);
+containerItems.replaceChildren(...listPosts);
 }

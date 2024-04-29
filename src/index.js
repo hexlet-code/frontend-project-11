@@ -7,12 +7,20 @@ import i18next from 'i18next';
 const elements = {
     form: document.querySelector('form'),
     inputUrl: document.querySelector('#url-input'),
-    submitButton: document.querySelector('button'),
+    submitButton: document.querySelector('.btn-lg'),
     feedbackError: document.querySelector('.feedback'),
     feeds: document.querySelector('.feeds'),
     posts: document.querySelector('.posts'),
+    modal: {
+        title: document.querySelector('.modal-title'),
+        content: document.querySelector('.modal-body'),
+        buttonRead: document.querySelector('.full-article'),
+        btnClose: [document.querySelector('.btn.btn-secondary'), document.querySelector('.btn-close.close')],
+        container: document.querySelector('.modal'),
+    }
 }
-
+// console.log(elements.submitButton)
+// console.log(elements.modal.btnClose);
 //состояние по умолчанию
 const state = {
     signupProcess: {
@@ -30,28 +38,11 @@ const state = {
         feeds: [],
         posts: [],
     },
-    // uiChannels: {
-    //     feeds: [{id: 1, description: 'sdfs'}],
-    //     posts: [
-    //         {
-    //         idFeed: 1, 
-    //         posts: [{title: 'title', 
-                // link: 'link', 
-                // desc: 'desc', 
-                // id: 221, 
-                // visited: false, 
-                // viewing: false}]
-    //     }],
-
-    // },
-
-    // uiState: {
-    //     idVisitedLink: 1,
-    //     idViewingLink: 1,
-    // },
-    //где хранить ошибку?
+    uiState: {
+        idVisitedLink: [],
+    },
     loadedChannels: [],
-    errorsNetwork: [],
+    errorsNetwork: null,
     lng: 'ru',
 };
 

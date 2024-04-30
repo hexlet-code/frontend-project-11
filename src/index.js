@@ -19,8 +19,7 @@ const elements = {
         container: document.querySelector('.modal'),
     }
 }
-// console.log(elements.submitButton)
-// console.log(elements.modal.btnClose);
+
 //состояние по умолчанию
 const state = {
     signupProcess: {
@@ -28,16 +27,10 @@ const state = {
         processError: null,
     },
     form: {
-        valid: false,
-        fields: {
-            inputUrl: '',
-        },
         errors: {},
     },
-    channels: {
-        feeds: [],
-        posts: [],
-    },
+    feeds: [],
+    posts: [],
     uiState: {
         idVisitedLink: [],
     },

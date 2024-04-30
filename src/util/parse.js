@@ -1,23 +1,15 @@
-
-const getFeed = (item) =>  ({
-    title: item.querySelector('title').textContent,
-    description: item.querySelector('description').textContent,
-    link: item.querySelector('link').textContent,
-  });
-  
-  const getPosts = (doc) => [...doc.querySelectorAll('item')].map((item) => ({
+  const getContent  = (...items) => items.map((item) => ({
     title: item.querySelector('title').textContent,
     description: item.querySelector('description').textContent,
     link: item.querySelector('link').textContent,
   }));
-  
+   
   
   const parse = (contents) => {
     const parser = new DOMParser();
     const htmlDoc = parser.parseFromString(contents, 'application/xml');
 
-    const feeds = getFeed(htmlDoc);
-    const posts = getPosts(htmlDoc);
+    const [feeds, ...posts] = getContent(htmlDoc, ...htmlDoc.querySelectorAll('item'));
     
     return {feeds, posts};
   }

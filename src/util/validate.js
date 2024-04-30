@@ -10,7 +10,7 @@ yup.setLocale({
     }
 });
 
-export default (fields, duplicateUrl, i18n) => {
+export default (fields, duplicateUrl) => {
 
     const shema = yup.object({
         url: yup.string()
@@ -23,9 +23,4 @@ export default (fields, duplicateUrl, i18n) => {
     .catch((err) => {
         throw err;
     })
-    // .catch((err) => err.inner.reduce((acc, {path, errors}) => {//errors массив ошибок
-    //     const [message] = errors;
-    //     acc[path] = i18n.t(message.key);
-    //     return acc;
-    // }, {}));
 };

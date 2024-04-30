@@ -1,5 +1,5 @@
 
-export default (elements, process, prevprocess) => {
+export default (elements, process) => {
     
     switch(process) {
         case 'loading': {
@@ -10,8 +10,12 @@ export default (elements, process, prevprocess) => {
             elements.submitButton.classList.remove('disabled');
             break;
         }
+        case 'filling': {
+            //затычка под ввод
+            break;
+        }
         default: 
-            console.log('Не обработанный процесс');
+            console.log(`Не обработанный процесс, в обработчике процессов: ${process}`);
             break;
     }
 }

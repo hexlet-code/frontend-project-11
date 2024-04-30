@@ -2,27 +2,22 @@ import renderErrors from "./renderErrors";
 import handleProcess from "../controller/handleProcess";
 import renderPosts from "./renderPosts";
 import renderFeeds from "./renderFeeds";
-import renderModal from "./renderModal";
 
-export default (state, elements) => (process, newState, prevState) => {
+export default (state, elements) => (process, newState) => {
     switch(process){
         case 'form.errors': {
             renderErrors(elements, newState);
             break;
         }
-        // case 'errorsNetwork': {
-        //     renderErrors(elements, newState, process);
-        //     break;
-        // }
         case 'signupProcess.processState': {
-            handleProcess(elements, newState, prevState);
+            handleProcess(elements, newState);
             break;
         }
-        case 'channels.posts': {
+        case 'posts': {
             renderPosts(elements, state, newState);
             break;
         }
-        case 'channels.feeds': {
+        case 'feeds': {
             renderFeeds(elements, newState);
             break;
         }

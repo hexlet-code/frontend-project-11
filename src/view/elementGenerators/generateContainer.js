@@ -2,7 +2,7 @@
 //Вынесена в отдельную функцию потому что может быть переиспользована с разными аргументами
 
 //функция проверяет существует ли контейнер если нет то создает, и возвращает контейнер для элементов
-export default (parantContainer ,content) => {
+export default (parantContainer, content) => {
 
 if(parantContainer.innerHTML !== '') return parantContainer.querySelector('ul');
 

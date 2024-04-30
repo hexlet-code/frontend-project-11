@@ -1,2 +1,3 @@
-import ru from "./ru";
-export default {ru};
+import ru from './ru';
+
+export default { ru };

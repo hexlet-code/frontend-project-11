@@ -1,9 +1,10 @@
 export default (elements, err) => {
-    elements.inputUrl.classList.remove('is-invalid');
-    elements.feedbackError.textContent = '';
-    elements.feedbackError.classList.add('text-danger');
+  const { inputUrl, feedbackError } = elements;
 
-    elements.inputUrl.classList.add('is-invalid');
-    elements.feedbackError.textContent = err;
-    
-}
+  inputUrl.classList.remove('is-invalid');
+  feedbackError.textContent = '';
+  feedbackError.classList.add('text-danger');
+
+  inputUrl.classList.add('is-invalid');
+  feedbackError.textContent = err;
+};

@@ -22,7 +22,8 @@ const updatePost = (state, proxyUrl, idFeed) => delay(intervalRequestServer)
   })
   .finally(() => updatePost(state, proxyUrl, idFeed))
   .catch(() => {
-    console.log('Не удалось получить ответ сервера');
+    const err = new Error('Network Error')
+    console.error(err);
   });
 
 export default updatePost;

@@ -12,9 +12,10 @@ const updatePost = (state, proxyUrl, idFeed) => delay(intervalRequestServer)
   .then(() => axios.get(proxyUrl))
   .then((response) => {
     const parseData = parse(response);
+    
     const prevPost = state.posts.filter((post) => idFeed === post.idFeed);
 
-    const filterPosts = ({ title }) => (prevPost.filter((pst) => pst.title === title)).length === 0;
+    const filterPosts = ({ title }) => prevPost.some((pst) => pst.title === title);
 
     const newPost = parseData.posts.find(filterPosts);
 

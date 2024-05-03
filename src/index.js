@@ -20,7 +20,6 @@ const elements = {
   },
 };
 
-// состояние по умолчанию
 const state = {
   signupProcess: {
     processState: 'filling',
@@ -36,7 +35,6 @@ const state = {
   lng: 'ru',
 };
 
-// при каждой инициализации приложения у меня будет создаваться новый обьект локализации
 const i18n = i18next.createInstance();
 i18n.init({
   lng: state.lng,

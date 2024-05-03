@@ -1,7 +1,7 @@
 export default (elements, message) => {
   const { form, feedbackError, inputUrl } = elements;
   form.reset();
-  
+
   inputUrl.classList.remove('is-invalid');
   inputUrl.classList.focus();
 

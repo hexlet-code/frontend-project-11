@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosGetter from './axiosGetter';
 import _ from 'lodash';
 import parse from './parse';
 
@@ -8,11 +8,12 @@ const delay = (ms) => new Promise((resolve) => {
   const id = setTimeout(() => resolve(id), ms);
 });
 
+
 const updatePost = (state, proxyUrl, idFeed) => delay(intervalRequestServer)
-  .then(() => axios.get(proxyUrl))
+  .then(() => axiosGetter(proxyUrl))
   .then((response) => {
     const parseData = parse(response);
-    
+
     const prevPost = state.posts.filter((post) => idFeed === post.idFeed);
 
     const filterPosts = ({ title }) => prevPost.some((pst) => pst.title === title);

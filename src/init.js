@@ -13,7 +13,7 @@ export default (defaultConfigState, elements, i18n) => {
 
   const watchState = onChange(state, render(state, elements, i18n));
 
-  // тут вешаю обработчики на кнопки закрытия модели
+ 
   elements.modal.btnClose.forEach((btn) => btn.addEventListener('click', () => {
     document.body.classList.remove('modal-open');
     document.body.style = '';
@@ -39,13 +39,14 @@ export default (defaultConfigState, elements, i18n) => {
       })
       .then((response) => {
         const parseData = parse(response);
+        const {feeds, posts} = parseData;
         loadedChannels.push(url);
         const idFeed = uniqueId();
-        parseData.feeds.idFeed = idFeed;
-        const posts = parseData.posts.map((post) => ({ ...post, id: uniqueId(), idFeed }));
+        const indexedFeed = {...feeds, idFeed};
+        const indexedPost = posts.map((post) => ({ ...post, id: uniqueId(), idFeed }));
 
-        watchState.feeds.unshift(parseData.feeds);
-        watchState.posts.unshift(...posts);
+        watchState.feeds.unshift(indexedFeed);
+        watchState.posts.unshift(...indexedPost);
         return idFeed;
       })
       .finally(() => {

@@ -22,7 +22,7 @@ const updatePost = (state, proxyUrl, idFeed) => delay(intervalRequestServer)
   })
   .finally(() => updatePost(state, proxyUrl, idFeed))
   .catch(() => {
-    const err = new Error('Network Error')
+    const err = new Error('Network Error');
     console.error(err);
   });
 

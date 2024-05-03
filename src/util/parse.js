@@ -18,6 +18,7 @@ export default (response) => {
   try {
     return parse(contents);
   } catch (error) {
+    error.type = 'networkError';
     error.message = 'errors.resourceNotContain';
     throw error;
   }

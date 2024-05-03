@@ -20,6 +20,7 @@ export default (fields, duplicateUrl) => {
   return shema.validate(fields, { abortEarly: false })
     .then(() => ({}))
     .catch((err) => {
+      err.type = 'formError';
       throw err;
     });
 };

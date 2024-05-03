@@ -26,16 +26,13 @@ const state = {
     processState: 'filling',
     processError: null,
   },
-  form: {
-    errors: {},
-  },
   feeds: [],
   posts: [],
   uiState: {
     idVisitedLink: [],
   },
   loadedChannels: [],
-  errorsNetwork: null,
+  errors: null,
   lng: 'ru',
 };
 

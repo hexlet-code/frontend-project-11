@@ -3,10 +3,10 @@ import handleProcess from '../controller/handleProcess';
 import renderPosts from './renderPosts';
 import renderFeeds from './renderFeeds';
 
-export default (state, elements) => (process, newState) => {
+export default (state, elements, i18n) => (process, newState) => {
   switch (process) {
-    case 'form.errors': {
-      renderErrors(elements, newState);
+    case 'errors': {
+      renderErrors(elements, newState, i18n);
       break;
     }
     case 'signupProcess.processState': {

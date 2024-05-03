@@ -13,7 +13,6 @@ export default (defaultConfigState, elements, i18n) => {
 
   const watchState = onChange(state, render(state, elements, i18n));
 
- 
   elements.modal.btnClose.forEach((btn) => btn.addEventListener('click', () => {
     document.body.classList.remove('modal-open');
     document.body.style = '';
@@ -39,10 +38,10 @@ export default (defaultConfigState, elements, i18n) => {
       })
       .then((response) => {
         const parseData = parse(response);
-        const {feeds, posts} = parseData;
+        const { feeds, posts } = parseData;
         loadedChannels.push(url);
         const idFeed = uniqueId();
-        const indexedFeed = {...feeds, idFeed};
+        const indexedFeed = { ...feeds, idFeed };
         const indexedPost = posts.map((post) => ({ ...post, id: uniqueId(), idFeed }));
 
         watchState.feeds.unshift(indexedFeed);

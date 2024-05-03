@@ -1,5 +1,5 @@
-import axiosGetter from './axiosGetter';
 import _ from 'lodash';
+import axiosGetter from './axiosGetter';
 import parse from './parse';
 
 const intervalRequestServer = 5000;
@@ -7,7 +7,6 @@ const intervalRequestServer = 5000;
 const delay = (ms) => new Promise((resolve) => {
   const id = setTimeout(() => resolve(id), ms);
 });
-
 
 const updatePost = (state, proxyUrl, idFeed) => delay(intervalRequestServer)
   .then(() => axiosGetter(proxyUrl))

@@ -3,7 +3,7 @@ export default (elements, message) => {
   form.reset();
 
   inputUrl.classList.remove('is-invalid');
-  inputUrl.classList.focus();
+  inputUrl.focus();
 
   feedbackError.classList.remove('text-danger');
   feedbackError.classList.add('text-success');

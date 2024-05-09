@@ -12,7 +12,11 @@
     "serve": "webpack serve"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "hexlet-code",
+    "email": "hexlet.code@mail.ru",
+    "url": "https://github.com/hexlet-code"
+  },
   "license": "ISC",
   "devDependencies": {
     "@webpack-cli/generators": "^3.0.7",

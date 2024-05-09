@@ -1,5 +1,5 @@
 ### Hexlet tests and linter status:
-[![Actions Status](https://github.com/hexlet-code/frontend-project-11/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/hexlet-code/frontend-project-11/actions)  [![Maintainability](https://api.codeclimate.com/v1/badges/ca065380da07e0794c35/maintainability)](https://codeclimate.com/github/hexlet-code/frontend-project-11/maintainability)[![Test Coverage](https://api.codeclimate.com/v1/badges/ca065380da07e0794c35/test_coverage)]
+[![Actions Status](https://github.com/hexlet-code/frontend-project-11/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/hexlet-code/frontend-project-11/actions)  [![Maintainability](https://api.codeclimate.com/v1/badges/ca065380da07e0794c35/maintainability)](https://codeclimate.com/github/hexlet-code/frontend-project-11/maintainability)  [![Test Coverage](https://api.codeclimate.com/v1/badges/ca065380da07e0794c35/test_coverage)]
 
 ### Описание:
 RSS — специализированный формат, предназначенный для описания лент новостей, анонсов статей и других материалов. Это наиболее простой способ для сайтов (обычно, блогов) дать возможность пользователям подписываться на изменения. Для этого используются специальные сервисы, называемые RSS-агрегаторами. Эти сервисы умеют опрашивать RSS-ленты сайтов на наличие новых постов и показывают их в удобном виде, отмечая прочитанное и так далее.
@@ -12,8 +12,8 @@ RSS — специализированный формат, предназнач�
 
 ### Установка:
 
--npm ci (скачивание/установка зависимостей)
+-npm ci
 
--npx run build (сборка проекта webpacko`м)
+-npx run build
 
--npx run serve (запуск проекта)
+-npx run serve
